@@ -54,7 +54,17 @@ if jogar.lower() == 's':
         print('==========================================================')
         naipes = ['Paus', 'Ouros', 'Espadas', 'Copas']
         cartas = ['A', 2, 3, 4, 5, 6, 7, 'Q', 'J', 'K']
-        cartas_valores = {'4': 1, '5': 2, '6': 3, '7': 4, 'Q': 5, 'J': 6, 'K': 7, 'A': 8, '2': 9, '3': 10}
+        cartas_valores = {'A:Paus': 11, 'A:Ouros': 11, 'A:Espadas': 11, 'A:Copas': 11,
+                  '2:Paus': 12, '2:Ouros': 12, '2:Espadas': 12, '2:Copas': 12,
+                  '3:Paus': 13, '3:Ouros': 13, '3:Espadas': 13, '3:Copas': 13,
+                  '4:Paus': 4, '4:Ouros': 4, '4:Espadas': 4, '4:Copas': 4,
+                  '5:Paus': 5, '5:Ouros': 5, '5:Espadas': 5, '5:Copas': 5,
+                  '6:Paus': 6, '6:Ouros': 6, '6:Espadas': 6, '6:Copas': 6,
+                  '7:Paus': 7, '7:Ouros': 7, '7:Espadas': 7, '7:Copas': 7,
+                  'Q:Paus': 8, 'Q:Ouros': 8, 'Q:Espadas': 8, 'Q:Copas': 8,
+                  'J:Paus': 9, 'J:Ouros': 9, 'J:Espadas': 9, 'J:Copas': 9,
+                  'K:Paus': 10, 'K:Ouros': 10, 'K:Espadas': 10, 'K:Copas': 10}
+
         
         
 
@@ -69,7 +79,11 @@ if jogar.lower() == 's':
             manilha = cartas[indice_manilha]
             # Print the manilha
             print(f'A manilha é: {manilha}')
-            manilha_valor = {f'{manilha}:Ouros':11, f'{manilha}:Espadas':12, f'{manilha}:Copas':13, f'{manilha}:Paus':14   }
+            cartas_valores[f'{manilha}:Ouros'] = 14
+            cartas_valores[f'{manilha}:Espadas'] = 15
+            cartas_valores[f'{manilha}:Copas'] = 16
+            cartas_valores[f'{manilha}:Paus'] = 17
+
             # create a list of all cards and types
             lista = []
             for carta in cartas:
@@ -100,10 +114,10 @@ if jogar.lower() == 's':
                 tornar()
             print(f'||O adversário jogou: {enemy_hand[0]}')
             print('||')
-            if cartas_valores[hand[jogada_indice].split(":")[0]] > cartas_valores[enemy_hand[0].split(":")[0]]:
+            if cartas_valores[hand[jogada_indice]] > cartas_valores[enemy_hand[0]]:
                 print('||+++++++++++++++Você ganhou!!!+++++++++++++')
                 seus_pontos += 1
-            elif cartas_valores[hand[jogada_indice].split(":")[0]] < cartas_valores[enemy_hand[0].split(":")[0]]:
+            elif cartas_valores[hand[jogada_indice]] < cartas_valores[enemy_hand[0]]:
                 print('||+++++++++++++++Você perdeu.+++++++++++++++')
                 enemy_pontos += 1
             else:
@@ -118,10 +132,10 @@ if jogar.lower() == 's':
 
             print(f'||O adversário jogou: {enemy_hand[0]}')
             print('||')
-            if cartas_valores[hand[jogada_indice].split(":")[0]] > cartas_valores[enemy_hand[0].split(":")[0]]:
+            if cartas_valores[hand[jogada_indice]] > cartas_valores[enemy_hand[0]]:
                 print('||+++++++++++++++Você ganhou!!!+++++++++++++')
                 seus_pontos += 1
-            elif cartas_valores[hand[jogada_indice].split(":")[0]] < cartas_valores[enemy_hand[0].split(":")[0]]:
+            elif cartas_valores[hand[jogada_indice]] < cartas_valores[enemy_hand[0]]:
                 print('||+++++++++++++++Você perdeu.+++++++++++++++')
                 enemy_pontos += 1
             else:
@@ -154,12 +168,12 @@ if jogar.lower() == 's':
                 jogada_indice = terceira_rodada()
                 print(f'||O adversário jogou: {enemy_hand[0]}')
                 print('||')
-                if cartas_valores[hand[0].split(":")[0]] > cartas_valores[enemy_hand[0].split(":")[0]]:
+                if cartas_valores[hand[0]] > cartas_valores[enemy_hand[0]]:
                     print('||+++++++++++++++Você ganhou!!!+++++++++++++')
                     seus_pontos_de_jogo += 1
                     seus_pontos = 0
                     enemy_pontos = 0
-                elif cartas_valores[hand[0].split(":")[0]] < cartas_valores[enemy_hand[0].split(":")[0]]:
+                elif cartas_valores[hand[0]] < cartas_valores[enemy_hand[0]]:
                     print('||+++++++++++++++Você perdeu.+++++++++++++++')
                     enemy_pontos_de_jogo += 1
                     enemy_pontos = 0
@@ -176,16 +190,23 @@ if jogar.lower() == 's':
             print(f'||Você venceu {seus_pontos_de_jogo} rodadas.')
             print(f'||O adversário venceu {enemy_pontos_de_jogo} rodadas.')
             print('+*****************************************************+')
+            if seus_pontos_de_jogo >= 12:
+                print('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
+                print('Parabéns, você ganhou!!!')
+                seus_pontos_de_jogo=0
+                print('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
+            elif enemy_pontos_de_jogo >= 12:
+                print('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
+                print('Você perdeu!!!')
+                print('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
+                enemy_pontos_de_jogo=0
+            else:
+                print('Empate!')
             jogar_novamente = input('Deseja jogar continuar? Sim(s) Não(n): ')
             if jogar_novamente.lower() != 's':
                 print('Desligando o jogo...')
                 break
-        if seus_pontos_de_jogo >= 12:
-            print('Parabéns, você ganhou!!!')
-        elif enemy_pontos_de_jogo >= 12:
-            print('Você perdeu!!!')
-        else:
-            print('Empate!')
-        input('teste')
+        
+        
 else:
     print('Desligando o jogo...')
