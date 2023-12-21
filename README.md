@@ -23,7 +23,7 @@ Desenvolvimento do Jogo
     Resposta aos Lances: Os oponentes podem aceitar, recusar ou aumentar os lances.
     Jogada das Cartas: Após os lances, as cartas são jogadas nas rodadas subsequentes.
     Pontuação: Os pontos são atribuídos com base nos lances e nas cartas jogadas.
-    Vencedor: O jogador que atingir primeiro a pontuação predeterminada (geralmente 15 pontos) vence o jogo.
+    Vencedor: O jogador que atingir primeiro a pontuação predeterminada (12 pt) vence o jogo.
 
 Objetivo:
        X-adicionar função truco-
