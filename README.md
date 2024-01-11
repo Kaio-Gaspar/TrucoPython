@@ -26,7 +26,7 @@ Desenvolvimento do Jogo
     Vencedor: O jogador que atingir primeiro a pontuação predeterminada (12 pt) vence o jogo.
 
 Objetivo:
-       adicionar função truco-(COMPLETO)
-       melhorar interface-(COMPLETO)
-       insirir probabilidade ao 'bot'-x
+       adicionar função truco-(COMPLETO).
+       melhorar interface-(COMPLETO).
+       insirir probabilidade ao 'bot'-x.
    
