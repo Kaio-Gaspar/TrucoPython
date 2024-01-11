@@ -71,4 +71,5 @@ def trucar(truco):
         else:
             print(cl.Fore.MAGENTA + 'Insira uma resposta válida.' + cl.Style.RESET_ALL)
             return trucar(truco)
+            
     return truco

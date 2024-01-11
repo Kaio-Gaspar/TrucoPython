@@ -179,3 +179,4 @@ if jogar.lower() == 's':
                 break
 else:
     print('Desligando o jogo...')
+    # 
