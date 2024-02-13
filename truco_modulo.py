@@ -1,17 +1,44 @@
 import random
+import sys, time
 import colorama as cl
 cl.init()
 def mostrar_cartas(hand):
-    
     if len(hand) == 3:
-        tornar_input = int(input(cl.Fore.YELLOW + 'Qual carta deseja jogar? Primeira(1), Segunda(2), Terceira(3): ' + cl.Style.RESET_ALL))
-        return tornar_input
+        while True:
+            try:
+                tornar_input1 = int(input(cl.Fore.YELLOW + 'Qual carta deseja jogar? Primeira(1), Segunda(2), Terceira(3): ' + cl.Style.RESET_ALL))
+                if tornar_input1 not in [1, 2, 3]:
+                    print(cl.Fore.MAGENTA + 'Insira uma resposta válida.' + cl.Style.RESET_ALL)
+                else:
+                    return tornar_input1
+            except ValueError:
+                print(cl.Fore.MAGENTA + 'Insira um número inteiro válido.' + cl.Style.RESET_ALL)
+
     elif len(hand) == 2:
-        tornar_input2 = int(input(cl.Fore.YELLOW + 'Qual carta deseja jogar? Primeira(1), Segunda(2): ' + cl.Style.RESET_ALL))
-        return tornar_input2
+        while True:
+            try:
+                tornar_input2 = int(input(cl.Fore.YELLOW + 'Qual carta deseja jogar? Primeira(1), Segunda(2): ' + cl.Style.RESET_ALL))
+                if tornar_input2 not in [1, 2]:
+                    print(cl.Fore.MAGENTA + 'Insira uma resposta válida.' + cl.Style.RESET_ALL)
+                else:
+                    return tornar_input2
+            except ValueError:
+                print(cl.Fore.MAGENTA + 'Insira um número inteiro válido.' + cl.Style.RESET_ALL)
+
     elif len(hand) == 1:
-        tornar_input3 = int(input(cl.Fore.YELLOW + 'Qual carta deseja jogar? Primeira(1): '+ cl.Style.RESET_ALL))
-        return tornar_input3
+        while True:
+            try:
+                tornar_input3 = int(input(cl.Fore.YELLOW + 'Qual carta deseja jogar? Primeira(1): '+ cl.Style.RESET_ALL))
+                if tornar_input3 != 1:
+                    print(cl.Fore.MAGENTA + 'Insira uma resposta válida.' + cl.Style.RESET_ALL)
+                else:
+                    return tornar_input3
+            except ValueError:
+                print(cl.Fore.MAGENTA + 'Insira um número inteiro válido.' + cl.Style.RESET_ALL)
+
+    else:
+        print(cl.Fore.MAGENTA + 'Insira uma resposta válida.' + cl.Style.RESET_ALL)
+        return mostrar_cartas(hand)
 
 
 # def tornar(hand):
@@ -40,6 +67,7 @@ def segunda_rodada(jogada, hand):
     else:
         print('||Informe uma carta válida')
         jogada_indice = None
+        return segunda_rodada()
     return jogada_indice
 
 
@@ -66,6 +94,7 @@ def trucar(truco):
         pedir_truco = input(cl.Fore.YELLOW + 'Vôce deseja pedir TRUCO?  (s)sim (n)não: ' + cl.Style.RESET_ALL)
         if pedir_truco.lower() == 's':
             truco = 2
+            print_slow(cl.Fore.LIGHTYELLOW_EX + 'T R U C O !' + cl.Style.RESET_ALL )
         elif pedir_truco.lower() == 'n':
             truco = 0
         else:
@@ -73,3 +102,15 @@ def trucar(truco):
             return trucar(truco)
             
     return truco
+
+def print_slow(str):
+    for letra in str + '\n':
+        sys.stdout.write(letra)
+        sys.stdout.flush()
+        time.sleep(0.05)
+
+#def checar_jogada(jogada, hand):
+    #if jogada > 3 or  jogada < 1:
+      #  return mostrar_cartas(hand)
+        
+        
