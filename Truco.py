@@ -98,7 +98,7 @@ if jogar.lower() == 's':
             jogada = mostrar_cartas(hand)
             print(cl.Fore.RED+'+==========================================+')
             jogada_indice = segunda_rodada(jogada, hand)
-
+            enemy_hand.pop(0)
             print(f'||O adversário jogou: {enemy_hand[0]}')
             print('||')
             if cartas_valores[hand[jogada_indice]] > cartas_valores[enemy_hand[0]]:
@@ -159,7 +159,7 @@ if jogar.lower() == 's':
                 print('+==========================================+')
             print(cl.Fore.CYAN + '+*****************************************************+')
             print(f'||Você venceu {seus_pontos_de_jogo} rodadas.')
-            print(f'||O adversário venceu {enemy_pontos_de_jogo} rodadas.')
+            print(f'||O adversário venceu {enemy_pontos_de_jogo} rodadas.')                                                                                  
             print('+*****************************************************+')
             if seus_pontos_de_jogo >= 12:
                 print('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
