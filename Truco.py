@@ -20,6 +20,7 @@ if jogar.lower() == 's':
 
         while seus_pontos < 12 and enemy_pontos < 12:
             truco = 0
+            truco_inimigo_round = 0
             
             
             cartas_valores = {'A:Paus\u2663': 11, 'A:Ouros\u2666': 11, 'A:Espadas\u2660': 11, 'A:Copas\u2665': 11,
@@ -62,7 +63,13 @@ if jogar.lower() == 's':
             enemy_hand = random.sample(enemy_hand, k=3)
             print(cl.Fore.LIGHTCYAN_EX + '-------------------------------------------')
             print('Suas cartas são', f'{hand}')
-            truco = trucar(truco)
+            truco = trucar(truco, truco_inimigo_round)
+            truco_inimigo_round = truco_inimigo(truco, truco_inimigo_round)
+            if truco_inimigo_round == -1:
+                enemy_pontos_de_jogo += 1
+                seus_pontos = 0
+                enemy_pontos = 0
+                continue
             jogada = mostrar_cartas(hand)
             # jogada = tornar(hand)
             print(cl.Fore.RED + '+==========================================+')
@@ -94,7 +101,13 @@ if jogar.lower() == 's':
             print_slow(cl.Back.YELLOW+'~~~~~~~~~~~~~~~~SEGUNDA RODADA~~~~~~~~~~~~~~'+ cl.Style.RESET_ALL)
             print_slow(cl.Fore.YELLOW + cl.Back.RED + f'A manilha é: {manilha}' + cl.Style.RESET_ALL)
             print(cl.Fore.LIGHTCYAN_EX + 'Suas cartas são', f'{hand}')
-            truco = trucar(truco)
+            truco = trucar(truco, truco_inimigo_round)
+            truco_inimigo_round = truco_inimigo(truco, truco_inimigo_round)
+            if truco_inimigo_round == -1:
+                enemy_pontos_de_jogo += 1
+                seus_pontos = 0
+                enemy_pontos = 0
+                continue
             jogada = mostrar_cartas(hand)
             print(cl.Fore.RED+'+==========================================+')
             jogada_indice = segunda_rodada(jogada, hand)
@@ -113,26 +126,32 @@ if jogar.lower() == 's':
             mostrar_pontos(seus_pontos, enemy_pontos)
             if seus_pontos and enemy_pontos >= 2:
                 seus_pontos = 0
-                seus_pontos_de_jogo += 1 + truco
+                seus_pontos_de_jogo += 1 + truco + truco_inimigo_round
                 enemy_pontos = 0
-                enemy_pontos_de_jogo += 1 + truco
+                enemy_pontos_de_jogo += 1 + truco + truco_inimigo_round
                 print_slow('-Rodada empatada-')
             elif seus_pontos == 2:
                 seus_pontos = 0
                 enemy_pontos = 0
-                seus_pontos_de_jogo += 1 + truco
+                seus_pontos_de_jogo += 1 + truco + truco_inimigo_round
                 print_slow('-Você venceu a rodada.-')
             elif enemy_pontos == 2:
                 enemy_pontos = 0
                 seus_pontos = 0
-                enemy_pontos_de_jogo += 1 + truco
+                enemy_pontos_de_jogo += 1 + truco + truco_inimigo_round
                 print_slow('-O adversário venceu a rodada.-')
             else:
                 enemy_hand.pop(0)
                 hand.pop(jogada_indice)
                 print_slow(cl.Back.YELLOW +'~~~~~~~~~~~~~~~~TERCEIRA RODADA~~~~~~~~~~~~~~' + cl.Style.RESET_ALL)
                 print(cl.Fore.LIGHTCYAN_EX +'Suas cartas são', f'{hand}')
-                truco = trucar(truco)
+                truco = trucar(truco, truco_inimigo_round)
+                truco_inimigo_round = truco_inimigo(truco, truco_inimigo_round)
+                if truco_inimigo_round == -1:
+                    enemy_pontos_de_jogo += 1
+                    seus_pontos = 0
+                    enemy_pontos = 0
+                    continue
                 jogada = mostrar_cartas(hand)
                 print(cl.Fore.RED + '+==========================================+')
 
@@ -141,12 +160,12 @@ if jogar.lower() == 's':
                 print('||')
                 if cartas_valores[hand[0]] > cartas_valores[enemy_hand[0]]:
                     print_slow('||'+ cl.Fore.BLACK + cl.Back.GREEN + '+++++++++++++++Você ganhou!!!+++++++++++++' + cl.Style.RESET_ALL)
-                    seus_pontos_de_jogo += 1 + truco
+                    seus_pontos_de_jogo += 1 + truco + truco_inimigo_round
                     seus_pontos = 0
                     enemy_pontos = 0
                 elif cartas_valores[hand[0]] < cartas_valores[enemy_hand[0]]:
                     print_slow('||' + cl.Back.RED+ '+++++++++++++++Você perdeu.+++++++++++++++' + cl.Style.RESET_ALL)
-                    enemy_pontos_de_jogo += 1 + truco
+                    enemy_pontos_de_jogo += 1 + truco + truco_inimigo_round
                     enemy_pontos = 0
                     seus_pontos = 0
                 else:
